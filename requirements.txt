@@ -1,0 +1,6 @@
+spacy
+streamlit
+PyPDF2
+python-docx
+fuzzywuzzy
+python-Levenshtein

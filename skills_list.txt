@@ -1,0 +1,37 @@
+python
+java
+c++
+c
+html
+css
+javascript
+typescript
+react
+angular
+nodejs
+express
+flask
+django
+mysql
+sql
+mongodb
+git
+github
+excel
+power bi
+machine learning
+deep learning
+data science
+artificial intelligence
+pandas
+numpy
+matplotlib
+tensorflow
+pytorch
+autocad
+solidworks
+ansys
+matlab
+simulink
+chemcad
+aspen plus
