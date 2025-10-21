@@ -2,8 +2,17 @@ import spacy
 import re
 from fuzzywuzzy import fuzz
 
-# Load spaCy model
-nlp = spacy.load("en_core_web_sm")
+import spacy
+import subprocess
+import sys
+
+# Try load model, agar fail ho to download kar do
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
+
 
 # Load skills
 with open("skills_list.txt", "r", encoding="utf-8") as f:
