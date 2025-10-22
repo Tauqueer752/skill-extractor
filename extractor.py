@@ -1,17 +1,20 @@
 import spacy
+import subprocess
+import sys
 import re
 from fuzzywuzzy import fuzz
 
-import spacy
-import subprocess
-import sys
+# Load or download spaCy model once
+@staticmethod
+def load_spacy_model():
+    try:
+        return spacy.load("en_core_web_sm")
+    except OSError:
+        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm", "--quiet"])
+        return spacy.load("en_core_web_sm")
 
-# Try load model, agar fail ho to download kar do
-try:
-    nlp = spacy.load("en_core_web_sm")
-except OSError:
-    subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
-    nlp = spacy.load("en_core_web_sm")
+nlp = load_spacy_model()
+
 
 
 # Load skills
