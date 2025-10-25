@@ -1,17 +1,5 @@
-import spacy
 import re
 from fuzzywuzzy import fuzz
-
-# Load or download spaCy model safely
-def load_spacy_model():
-    try:
-        return spacy.load("en_core_web_sm")
-    except OSError:
-        import subprocess, sys
-        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm", "--quiet"])
-        return spacy.load("en_core_web_sm")
-
-nlp = load_spacy_model()
 
 # Load skills list
 with open("skills_list.txt", "r", encoding="utf-8") as f:
@@ -39,22 +27,17 @@ def normalize_text(text):
     return text
 
 def extract_skills(text):
-    """Extract technical skills using NLP + synonym + fuzzy matching."""
+    """Extract technical skills using synonym + fuzzy matching."""
     text = normalize_text(text)
-    doc = nlp(text)
     found = set()
 
-    # Exact keyword match
     for skill in SKILLS:
         if re.search(r'\b' + re.escape(skill) + r'\b', text):
             found.add(skill)
-
-    # Fuzzy token-based match
-    for token in doc:
-        token_text = token.text.lower()
-        for skill in SKILLS:
-            if fuzz.ratio(token_text, skill) > 90:
-                found.add(skill)
+        else:
+            for word in text.split():
+                if fuzz.ratio(word, skill) > 90:
+                    found.add(skill)
 
     return sorted(found)
 
